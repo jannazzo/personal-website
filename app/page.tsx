@@ -24,23 +24,23 @@ const roles: Role[] = [
   {
     org: "Inspire Columbia",
     role: "Founder & CEO",
-    desc: "A 501(c)(3) nonprofit that brings the Columbia community together through events — including the city’s first standard TEDx in over a decade.",
-    date: "2025—Now",
+    desc: "A 501(c)(3) nonprofit that brings the Columbia community together through events that inspire, including the city’s first standard TEDx event in over a decade.",
+    date: "2025—Present",
     href: "https://www.inspirecolumbia.org/",
     delay: 0,
   },
   {
     org: "Kappa Theta Pi",
     role: "President & Founding Member",
-    desc: "USC’s professional technology fraternity. I helped start the Alpha Theta chapter and now lead it — including a first-of-its-kind nonprofit consulting program.",
-    date: "2023—Now",
+    desc: "USC’s professional technology fraternity. We pioneered a student nonprofit consulting program. I helped start the chapter and now lead it. ",
+    date: "2023—Present",
     href: "https://www.ktpusc.com/",
     delay: 80,
   },
   {
     org: "TEDxCongaree Vista",
     role: "Co-Organizer & Event Manager",
-    desc: "Brought a citywide TEDx to Columbia: the region’s largest convention center, eight exhibitors, a 15-person crew, and 100+ guests.",
+    desc: "Brought a citywide TEDx event to Columbia, SC. Rented the region’s largest convention center, featured eight exhibitors, managed a 15-person crew, and welcomed 100+ guests.",
     date: "2025—2026",
     href: "https://tedxcongareevista.com",
     delay: 160,
@@ -101,7 +101,7 @@ export default function Home() {
           </p>
           <p className="lead" data-reveal data-delay="375">
             Most of what I do comes down to{" "}
-            <strong>building teams and following through</strong>. I&apos;ve built a nonprofit,
+            building teams and following through. I&apos;ve built a nonprofit,
             a student organization, and an EdTech startup company from the ground up. I like
             working across a lot of fronts, and aiming to leave each one a little
             better than I found it.
