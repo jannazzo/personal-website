@@ -195,7 +195,10 @@ h1.name {
   }
 }
 
-/* ---------- primary links ---------- */
+/* ---------- primary links ----------
+   Editorial hairline pills: transparent on the paper, uppercase micro-labels
+   (echoing .eyebrow / .row-role), accent icons. Hover stays transparent —
+   just a faint translucent wash, an accent-leaning border, and a lift. */
 .links {
   display: flex;
   flex-wrap: wrap;
@@ -205,72 +208,40 @@ h1.name {
   padding: 0;
 }
 .links a {
-  position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  min-height: 46px;
-  padding: 0 17px;
+  min-height: 44px;
+  padding: 0 19px;
   border: 1px solid var(--line-strong);
-  border-radius: 13px;
-  background: rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 1px 2px rgba(20, 28, 40, 0.05);
+  border-radius: 999px;
+  background: transparent;
   color: var(--ink);
   text-decoration: none;
   font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.01em;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
     transform 0.28s cubic-bezier(0.2, 0.75, 0.25, 1),
     box-shadow 0.28s ease;
 }
-.links a > * {
-  position: relative;
-  z-index: 1;
-}
-.links a::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0) 52%
-  );
-  opacity: 0;
-  transition: opacity 0.28s ease;
-  z-index: 0;
-}
 .links a .ic {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   flex: none;
+  color: var(--accent);
 }
 .links a:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-  transform: translateY(-4px);
-  box-shadow:
-    0 14px 26px -12px color-mix(in srgb, var(--accent) 60%, transparent),
-    0 3px 8px rgba(20, 28, 40, 0.12);
-}
-.links a:hover::before {
-  opacity: 0.45;
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line-strong));
+  background: rgba(255, 255, 255, 0.38);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -16px rgba(20, 28, 40, 0.35);
 }
 .links a:active {
   transform: translateY(-1px);
-}
-.links a:hover .ic {
-  color: #fff;
 }
 .links a:focus-visible {
   outline: 2px solid var(--accent);
@@ -394,7 +365,7 @@ h1.name {
   font-size: 16px;
   line-height: 1.5;
   color: var(--ink-soft);
-  margin-top: 9px;
+  margin: 9px 0 0; /* zero the UA's default <p> bottom margin */
   max-width: 60ch;
   text-wrap: pretty;
 }
@@ -538,28 +509,68 @@ h1.name {
   }
 }
 
-/* ---------- ambient cursor glow ---------- */
+/* ---------- ambient cursor glow ----------
+   Two blurred elliptical gradient layers drift and counter-rotate inside the
+   container, so the glow reads as a soft organic shape rather than a circle.
+   The container itself trails the cursor via a lerp in RevealMotion (the
+   left/top here are only the resting position before JS takes over). */
 .hero-glow {
   position: fixed;
   z-index: 0;
   pointer-events: none;
-  width: min(64vw, 560px);
+  width: min(70vw, 620px);
   aspect-ratio: 1;
-  border-radius: 50%;
   left: 36%;
   top: 30%;
   transform: translate(-50%, -50%);
+  opacity: 0.48;
+  transition: opacity 0.6s ease;
+}
+.hero-glow::before,
+.hero-glow::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  filter: blur(52px);
+  will-change: transform;
+}
+.hero-glow::before {
   background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--accent) 32%, transparent) 0%,
-    transparent 66%
+    44% 58% at 40% 44%,
+    color-mix(in srgb, var(--accent) 30%, transparent),
+    transparent 72%
   );
-  filter: blur(48px);
-  opacity: 0.3;
-  transition:
-    left 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
-    top 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
-    opacity 0.6s ease;
+  animation: glow-drift-a 16s ease-in-out infinite alternate;
+}
+.hero-glow::after {
+  background: radial-gradient(
+    56% 40% at 60% 56%,
+    color-mix(in srgb, var(--accent-soft) 24%, transparent),
+    transparent 72%
+  );
+  animation: glow-drift-b 21s ease-in-out infinite alternate;
+}
+@keyframes glow-drift-a {
+  from {
+    transform: translate(-5%, -4%) rotate(-8deg) scale(1);
+  }
+  to {
+    transform: translate(6%, 5%) rotate(22deg) scale(1.1);
+  }
+}
+@keyframes glow-drift-b {
+  from {
+    transform: translate(5%, 3%) rotate(10deg) scale(1.08);
+  }
+  to {
+    transform: translate(-6%, -5%) rotate(-18deg) scale(0.96);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow::before,
+  .hero-glow::after {
+    animation: none;
+  }
 }
 .wrap > section,
 .wrap > footer {

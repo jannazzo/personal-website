@@ -43,17 +43,44 @@ export function RevealMotion() {
       if (!fired) revealAll();
     }, 1200);
 
-    // Soft accent glow follows the cursor across the whole viewport.
+    // Soft accent glow trails the cursor with an exponential lerp, easing
+    // toward the pointer instead of restarting a CSS transition on each event.
+    // The loop only runs while the glow is still catching up.
     const glow = document.querySelector<HTMLElement>(".hero-glow");
     let raf = 0;
-    const onMove = (ev: PointerEvent) => {
-      if (ev.pointerType === "touch" || raf) return;
-      raf = requestAnimationFrame(() => {
+    let gx = window.innerWidth * 0.36;
+    let gy = window.innerHeight * 0.3;
+    let tx = gx;
+    let ty = gy;
+    let last = 0;
+    const step = (now: number) => {
+      const dt = last ? now - last : 16;
+      last = now;
+      // time-based smoothing (~300ms to close most of the gap), so the trail
+      // feels the same on 60Hz and 120Hz displays
+      const k = 1 - Math.exp(-dt / 300);
+      gx += (tx - gx) * k;
+      gy += (ty - gy) * k;
+      if (Math.abs(tx - gx) < 0.5 && Math.abs(ty - gy) < 0.5) {
+        gx = tx;
+        gy = ty;
         raf = 0;
-        if (!glow) return;
-        glow.style.left = `${(ev.clientX / window.innerWidth) * 100}%`;
-        glow.style.top = `${(ev.clientY / window.innerHeight) * 100}%`;
-      });
+        last = 0;
+      } else {
+        raf = requestAnimationFrame(step);
+      }
+      glow!.style.transform = `translate3d(${gx}px, ${gy}px, 0) translate(-50%, -50%)`;
+    };
+    const onMove = (ev: PointerEvent) => {
+      if (!glow || ev.pointerType === "touch") return;
+      tx = ev.clientX;
+      ty = ev.clientY;
+      if (!raf) {
+        // switch from the CSS resting position to transform-driven movement
+        glow.style.left = "0";
+        glow.style.top = "0";
+        raf = requestAnimationFrame(step);
+      }
     };
     if (glow) window.addEventListener("pointermove", onMove, { passive: true });
 
