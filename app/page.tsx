@@ -24,7 +24,7 @@ const roles: Role[] = [
   {
     org: "Inspire Columbia",
     role: "Founder & CEO",
-    desc: "A 501(c)(3) nonprofit that brings the Columbia community together through events that inspire, including the city’s first standard TEDx event in over a decade.",
+    desc: "A 501(c)(3) nonprofit that brings the Columbia, SC community together through events that inspire, including the city’s first standard TEDx event in over a decade.",
     date: "2025—Present",
     href: "https://www.inspirecolumbia.org/",
     delay: 0,
@@ -97,17 +97,17 @@ export default function Home() {
 
           <p className="lead" data-reveal data-delay="310">
             I&apos;m a first-generation college student at the University of
-            South Carolina Honors College, studying computer engineering with a minor in business.
+            South Carolina, studying computer engineering with a minor in business.
           </p>
           <p className="lead" data-reveal data-delay="375">
             Most of what I do comes down to{" "}
             building teams and following through. I&apos;ve built a nonprofit,
-            a student organization, and an EdTech startup company from the ground up. I like
-            working across a lot of fronts, and aiming to leave each one a little
+            a student organization, and a startup company from the ground up. I like
+            working across a lot of fronts, and aiming to leave each one
             better than I found it.
           </p>
           <p className="lead" data-reveal data-delay="440">
-            If any of that overlaps with what you&apos;re working on, I&apos;d
+            If you're interested in anything I'm working on, I&apos;d
             love to hear from you.
           </p>
 
@@ -152,7 +152,7 @@ export default function Home() {
             <li data-reveal data-delay="980">
               <a href="mailto:luke@jannazzo.tech">
                 <MailIcon className="ic" />
-                Contact
+                Email
               </a>
             </li>
           </ul>
