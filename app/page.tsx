@@ -33,7 +33,7 @@ const roles: Role[] = [
     org: "Kappa Theta Pi",
     role: "President & Founding Member",
     desc: "USC’s professional technology fraternity. We pioneered a student nonprofit consulting program. I helped start the chapter and now lead it. ",
-    date: "2023—Present",
+    date: "2025—Present",
     href: "https://www.ktpusc.com/",
     delay: 80,
   },
