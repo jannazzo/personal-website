@@ -141,7 +141,7 @@ export default function Home() {
             </li>
             <li data-reveal data-delay="840">
               <a
-                href="/Luke-Jannazzo-Resume.pdf"
+                href="https://files.jannazzo.tech/file/Luke%20Jannazzo%20Resume.pdf"
                 target="_blank"
                 rel="noopener"
               >
