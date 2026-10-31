@@ -11,9 +11,10 @@ export const newsreader = Newsreader({
 });
 
 // UI / label sans. Variable font, so the 400–700 weights used by the design are
-// all available without listing them.
+// all available without listing them. `optional` never swaps fonts after first
+// paint, so the uppercase link pills can't resize when the font arrives late.
 export const hanken = Hanken_Grotesk({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   variable: "--font-hanken",
 });

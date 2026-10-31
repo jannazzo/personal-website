@@ -58,7 +58,6 @@ const roles: Role[] = [
 export default function Home() {
   return (
     <main className="wrap">
-      <div className="hero-glow" aria-hidden="true" />
 
       {/* ============ HERO ============ */}
       <section className="hero">
@@ -111,15 +110,8 @@ export default function Home() {
             love to hear from you.
           </p>
 
-          <div className="status" title="Currently" data-reveal data-delay="520">
-            <span className="pulse" />
-            <span>
-              Currently — <b>Anti-Fraud Technology Intern</b> at SMBC Group
-            </span>
-          </div>
-
           <ul className="links">
-            <li data-reveal data-delay="560">
+            <li>
               <a
                 href="https://www.linkedin.com/in/lukejannazzo"
                 target="_blank"
@@ -129,7 +121,7 @@ export default function Home() {
                 LinkedIn
               </a>
             </li>
-            <li data-reveal data-delay="700">
+            <li>
               <a
                 href="https://github.com/jannazzo"
                 target="_blank"
@@ -139,7 +131,7 @@ export default function Home() {
                 GitHub
               </a>
             </li>
-            <li data-reveal data-delay="840">
+            <li>
               <a
                 href="https://files.jannazzo.tech/file/Luke%20Jannazzo%20Resume.pdf"
                 target="_blank"
@@ -149,7 +141,7 @@ export default function Home() {
                 Resume
               </a>
             </li>
-            <li data-reveal data-delay="980">
+            <li>
               <a href="mailto:luke@jannazzo.tech">
                 <MailIcon className="ic" />
                 Email

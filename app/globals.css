@@ -152,49 +152,6 @@ h1.name {
   color: var(--ink);
 }
 
-/* status chip */
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 26px;
-  padding: 7px 13px 7px 11px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.45);
-  font-size: 12.5px;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-}
-.status b {
-  color: var(--ink);
-  font-weight: 600;
-}
-.status .pulse {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
-  animation: pulse 2.6s ease-out infinite;
-}
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
-  }
-  70% {
-    box-shadow: 0 0 0 7px transparent;
-  }
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .status .pulse {
-    animation: none;
-  }
-}
-
 /* ---------- primary links ----------
    Editorial hairline pills: transparent on the paper, uppercase micro-labels
    (echoing .eyebrow / .row-role), accent icons. Hover stays transparent —
@@ -509,69 +466,6 @@ h1.name {
   }
 }
 
-/* ---------- ambient cursor glow ----------
-   Two blurred elliptical gradient layers drift and counter-rotate inside the
-   container, so the glow reads as a soft organic shape rather than a circle.
-   The container itself trails the cursor via a lerp in RevealMotion (the
-   left/top here are only the resting position before JS takes over). */
-.hero-glow {
-  position: fixed;
-  z-index: 0;
-  pointer-events: none;
-  width: min(70vw, 620px);
-  aspect-ratio: 1;
-  left: 36%;
-  top: 30%;
-  transform: translate(-50%, -50%);
-  opacity: 0.48;
-  transition: opacity 0.6s ease;
-}
-.hero-glow::before,
-.hero-glow::after {
-  content: "";
-  position: absolute;
-  inset: -8%;
-  filter: blur(52px);
-  will-change: transform;
-}
-.hero-glow::before {
-  background: radial-gradient(
-    44% 58% at 40% 44%,
-    color-mix(in srgb, var(--accent) 30%, transparent),
-    transparent 72%
-  );
-  animation: glow-drift-a 16s ease-in-out infinite alternate;
-}
-.hero-glow::after {
-  background: radial-gradient(
-    56% 40% at 60% 56%,
-    color-mix(in srgb, var(--accent-soft) 24%, transparent),
-    transparent 72%
-  );
-  animation: glow-drift-b 21s ease-in-out infinite alternate;
-}
-@keyframes glow-drift-a {
-  from {
-    transform: translate(-5%, -4%) rotate(-8deg) scale(1);
-  }
-  to {
-    transform: translate(6%, 5%) rotate(22deg) scale(1.1);
-  }
-}
-@keyframes glow-drift-b {
-  from {
-    transform: translate(5%, 3%) rotate(10deg) scale(1.08);
-  }
-  to {
-    transform: translate(-6%, -5%) rotate(-18deg) scale(0.96);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-glow::before,
-  .hero-glow::after {
-    animation: none;
-  }
-}
 .wrap > section,
 .wrap > footer {
   position: relative;
@@ -605,9 +499,28 @@ h1.name {
     filter: none;
   }
 
-  /* link buttons cascade in left-to-right with a slight horizontal slide */
-  html.reveal-js .links li[data-reveal] {
-    transform: translate(-14px, 10px);
+  /* link buttons cascade in with a pure CSS animation (no blur, no JS), so a
+     slow bundle or hydration can't leave them hidden or make them pop in late */
+  .links li {
+    animation: link-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+  .links li:nth-child(1) {
+    animation-delay: 0.15s;
+  }
+  .links li:nth-child(2) {
+    animation-delay: 0.22s;
+  }
+  .links li:nth-child(3) {
+    animation-delay: 0.29s;
+  }
+  .links li:nth-child(4) {
+    animation-delay: 0.36s;
+  }
+  @keyframes link-in {
+    from {
+      opacity: 0;
+      transform: translate(-10px, 8px);
+    }
   }
 
   /* the name reveals line-by-line, each line sliding up behind a mask */
